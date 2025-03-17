@@ -52,4 +52,5 @@ class Comment(TimestampModel):
     class Meta:
         verbose_name='댓글'
         verbose_name_plural='댓글 목록'
+        ordering = ('-created_at',)
     #블로그 정보, 댓글 내용, 작성자, 작성일자, 수정일자
