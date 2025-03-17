@@ -64,7 +64,7 @@ def blog_create(request):
     #         return redirect(reverse('blog_detail',{'pk': blog.pk}))
     #     else:
     #         form = BlogForm()
-    temlpate_name = 'blog_create.html'
+    temlpate_name = 'blog_form.html'
     context = {'form':form}
     return render(request,temlpate_name,context)
 
@@ -77,7 +77,7 @@ def blog_update(request, pk):
         blog = form.save()
         return redirect(reverse('fb:detail',kwargs={'pk': blog.pk}))
 
-    template_name = 'blog_update.html'
+    template_name = 'blog_form.html'
     context = {
         'form': form,  # form.instance = blog
         }
