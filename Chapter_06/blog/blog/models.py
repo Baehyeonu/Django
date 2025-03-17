@@ -27,7 +27,7 @@ class Blog(TimestampModel):
         return f'[{self.get_catergory_display()}] {self.title[:10]}'
     
     def get_absolute_url(self):
-        return reverse('blog:detail', kwargs={'pk': self.pk})
+        return reverse('blog:detail', kwargs={'blog_pk': self.pk})
     
 # f'[{self.get_catergory_display()}] => 카테고리초이스중 free 가 아닌 자유를 출력하게 만든다
 # {self.title[:10]}' => 제목의 글자를 제한한다.
