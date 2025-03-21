@@ -55,7 +55,7 @@ urlpatterns = [
     # path('test/', TestView.as_view(),name = 'test')
     
     #summernote
-    path('summernote/', include('django_summernote.urls'))
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG:

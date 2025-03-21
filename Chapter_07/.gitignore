@@ -18,3 +18,7 @@ Thumbs.db
 # 다운로드된 의존성
 node_modules/
 vendor/
+
+#
+__pycache__/
+*.pyc

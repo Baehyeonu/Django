@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse, reverse_lazy
-from blog.forms import CommentForm
+from blog.forms import CommentForm, BlogForm
 
 
 class BloglistView(ListView):
@@ -75,7 +75,7 @@ class BlogDetailView(ListView):
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'blog_form.html'
-    fields = ('catergory','title', 'content')
+    form_class = BlogForm
     # success_url = reverse_lazy('cd_blog_list') 정적인 페이지로 갈때는 함수 success보다 이 코드
 
     def form_valid(self, form):
@@ -84,8 +84,8 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
-    def get_success_url(self):
-        return reverse_lazy('blog:detail', kwargs={'pk': self.object.pk})
+    # def get_success_url(self):
+    #     return reverse_lazy('blog:detail', kwargs={'pk': self.object.pk})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -96,7 +96,8 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
 class BlogUpdateView(LoginRequiredMixin,UpdateView):
     model = Blog
     template_name = 'blog_form.html'
-    fields = ('catergory','title', 'content')
+    form_class = BlogForm
+    # fields = ('catergory','title', 'content')
     
     # def get_object(self, queryset=None):
     #     self.object = super().get_object(queryset)

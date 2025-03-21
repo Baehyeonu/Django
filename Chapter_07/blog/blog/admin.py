@@ -10,7 +10,7 @@ class CommentInline(admin.TabularInline):
 
 @admin.register(Blog)
 class BlogAdmin(SummernoteModelAdmin):
-    summernote_fields = ['content',]
+    summernote_fields = ['content', ]
     inlines = [
         CommentInline
-        ]
+    ]
