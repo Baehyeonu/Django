@@ -1,0 +1,20 @@
+# 로컬 설정 파일
+.env
+
+# 빌드 아티팩트
+build/
+dist/
+
+# 로그 파일
+*.log
+
+# 시스템 생성 파일
+.DS_Store
+Thumbs.db
+
+# 임시 파일
+*.tmp
+
+# 다운로드된 의존성
+node_modules/
+vendor/
