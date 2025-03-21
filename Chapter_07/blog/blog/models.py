@@ -22,6 +22,9 @@ class Blog(TimestampModel):
     #models.CASCADE :  같이 삭제
     #models.PROTECT : 삭제가 불가능함(유저를 삭제하려고할때 블로그가 있으면 유저 삭제가 불가능)
     #mdels.SET_NULL : NULL값을 넣습니다. 유저 삭제 시 블로그의 author가 이 null이 됨, NULL=True
+    image = models.ImageField('이미지', null=True, blank=True, upload_to='blog/%Y-%m-%d')
+    #ImageField, FieldField와 같지만 이미지만 업로드하게 되어있다.
+    #varchar => 경로만 저장을 함
 
     def __str__(self):
         return f'[{self.get_catergory_display()}] {self.title[:10]}'

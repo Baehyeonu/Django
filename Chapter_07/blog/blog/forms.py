@@ -5,7 +5,7 @@ from django_summernote.widgets import SummernoteWidget
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('catergory', 'title', 'content')
+        fields = ('catergory', 'title', 'image' ,'content')
         widgets = {
             'content': SummernoteWidget()
         }
