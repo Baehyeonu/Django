@@ -19,7 +19,10 @@
         {{ blog.author.username }}
     </div>
     <hr>
-        <img src="{{blog.image.url}}" alt="" class="w-100">
+        {%if blog.image%}
+            <img src="{{ blog.image.url }}" alt="" style="max-width: 800px;">
+        {%endif%}
+    
 
         <p>{{ blog.content | safe}}</p>
 
