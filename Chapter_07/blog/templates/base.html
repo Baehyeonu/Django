@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그 프로젝트</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- <h1>블로그 목록{{count}}</h1> -->
+    <nav class="d-flex justify-content-between py-2 px-4 bg-black text-white">
+        <div>
+            <a class="text-decoration-nene text-white" href="{%url 'blog:list'%}">홈</a>
+        </div>
+        <div style="text-align: right;"t>
+            {% if request.user.is_authenticated %}
+            <form action="{%url 'logout'%}" method="POST" class="d-inline">
+                {%csrf_token%}
+                <button class="btn btn-danger btn-sm">로그아웃</button>
+            </form>
+            {{request.user.username}}
+            {% else %}
+            <a href="{%url 'signup' %}"> <button>회원가입</button> </a>
+            <a href="{%url 'login' %}"> <button>로그인</button> </a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+
+    </footer>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    {% block js %} {% endblock %}
+</body>
+</html>
