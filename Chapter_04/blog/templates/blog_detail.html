@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+{% block content %}
+<body>
+    <h1>{{ blog.title }}</h1>
+
+    {% if request.user == blog.author%}
+        <div style="text-align: right;">
+            <a href="{%url 'blog_update' blog.pk%}"><button>수정</button></a>
+
+            <form action="{%url 'blog_delete' blog.pk%}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button>삭제</button>
+            </form>
+        </div>
+    {% endif %}
+    <div>
+        {{blog.author.username}}
+    </div>
+    <hr>
+    <p>{{blog.content}}</p>
+
+    <a href="{%url 'blog_list'%}">목록으로 돌아가기</a>
+{% endblock %}
