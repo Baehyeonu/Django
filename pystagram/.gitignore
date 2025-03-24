@@ -25,3 +25,7 @@ __pycache__/
 
 #static
 /static
+
+#.config
+/.config_secret
+.config_secret/*
