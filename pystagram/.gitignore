@@ -22,3 +22,6 @@ vendor/
 #
 __pycache__/
 *.pyc
+
+#static
+/static

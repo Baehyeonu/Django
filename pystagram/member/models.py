@@ -61,4 +61,4 @@ class User(AbstractBaseUser):
     @property
     def is_suppuser(self):
         return self.is_admin
-    
+
