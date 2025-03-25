@@ -2,10 +2,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-from member.forms import SignupForm
+
+#member에서 불러오는 import
+from member.forms import SignupForm, LoginForm
 
 #User = get_user_model()
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 
 #이메일
 from django.core.signing import TimestampSigner, SignatureExpired
@@ -31,7 +33,7 @@ class SignupView(FormView):
         # email = signer.unsign(decoded_user_email, max_age=60 *30)
         url = f'{self.request.scheme}://{self.request.META["HTTP_HOST"]}/verify/?code={signer_dump}'
         print(url)
-
+        
         subject = '[Pystgram]이메일 인증을 완료해주세요'
         message = f'다음 링크를 클릭해 주세요 <br><a href="{url}">{url}</a>'
 
@@ -57,3 +59,20 @@ def verify_email(request):
     user.is_active = True
     user.save()
     return render(request, 'auth/email_verified_done.html', {'user': user})
+
+
+class LoginView(FormView):
+    template_name = 'auth/login.html'
+    form_class = LoginForm
+    # TODO: 나중에 메인페이지로 Redirect 시키기
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.user
+        login(self.request, user)
+
+        next_page = self.request.GET.get('next')
+        if next_page:
+            return HttpResponseRedirect(next_page)
+
+        return HttpResponseRedirect(self.get_success_url())

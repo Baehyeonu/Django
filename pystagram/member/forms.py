@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -43,4 +43,40 @@ class SignupForm(UserCreationForm):
             )
         }
 
+class LoginForm(forms.Form):
+    email = forms.CharField(
+        label='이메일',
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                'placeholder': 'example@example.com',
+                'class': 'form-control'
+            }
+        )
+    )
+    password = forms.CharField(
+        label='패스워드',
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'password',
+                'class': 'form-control'
+            }
+        )
+    )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = None
+
+		# 폼의 데이터를 검증하고, 추가적인 처리를 수행합니다.
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        self.user = authenticate(email=email, password=password)
+
+        if not self.user.is_active:
+            raise forms.ValidationError('유저가 인증되지 않았습니다.')
+        return cleaned_data
