@@ -20,7 +20,7 @@ class Post(TimestampModel):
 
 
 class PostImage(TimestampModel):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE) # 해당 이미지를 소유한 포스트를 나타내는 외래 키 필드로, Post 모델과 관계를 맺습니다.
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images') # 해당 이미지를 소유한 포스트를 나타내는 외래 키 필드로, Post 모델과 관계를 맺습니다.
     image = models.ImageField('이미지', upload_to='post/%Y/%m/%d')
 
     def __str__(self):

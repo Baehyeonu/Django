@@ -28,11 +28,13 @@ from django.urls import include, path
 #SETTING
 from django.conf import settings
 from django.conf.urls.static import static
-
+#메인 화면
+from post import views as post_views
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', post_views.PostListView.as_view(), name='main'),
     #auth
     path('signup/', member_views.SignupView.as_view(), name='signup'),
     # path('signup_done/', TemplateView.as_view(template_name='auth/signup_done.html'), name='signup_done')
