@@ -30,6 +30,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 #메인 화면
 from post import views as post_views
+#블로그 글 생성
 
 
 urlpatterns = [
@@ -42,7 +43,10 @@ urlpatterns = [
     #로그인
     path('login/', member_views.LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name = 'logout'),
-    
+    #블로그 생성
+    path('create/', post_views.PostCreateView.as_view(), name='create'),
+    #블로그 수정
+    path('<int:pk>/update/', post_views.PostUpdateView.as_view(), name='update'),
 ]
 
 if settings.DEBUG:

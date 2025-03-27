@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block style %}
     <link
         rel="stylesheet"
@@ -16,6 +15,9 @@
 
 {% block content %}
     <div class="row">
+        <div class="text-end col-10 offset-1 col-lg-6 offset-lg-3">
+            <a class="btn btn-sm btn-info" href="{% url 'create' %}">생성</a>
+        </div>
         <div class="col-10 offset-1 col-lg-6 offset-lg-3 infinite-container">
             {% for post in object_list %}
                 <div class="border-bottom my-4 infinite-item">
@@ -24,6 +26,11 @@
                             <i class="fa-solid fa-user" style="width: 16px; padding-left: 1px;"></i>
                         </span>
                         {{ post.user.nickname }}
+                        {% if post.user == request.user %}
+                            <a href="{% url 'update' post.pk %}" class="btn btn-warning btn-sm float-end">
+                                수정
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="swiper" style="max-height: 500px;">
                         <div class="border-1 swiper-wrapper">
@@ -42,7 +49,9 @@
                 </div>
             {% endfor %}
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="infinite-more-link d-none"></a>
+                <a
+                    href="?page={{ page_obj.next_page_number }}"
+                    class="infinite-more-link d-none"></a>
             {% endif %}
         </div>
     </div>
@@ -64,7 +73,7 @@
                 el: '.swiper-pagination'
             }
         });
-        
+
         let infinite = new Waypoint.Infinite({
             element: $('.infinite-container')[0],
             offset: 'bottom-in-view'
