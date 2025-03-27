@@ -6,7 +6,6 @@ from utils.models import TimestampModel
 
 User = get_user_model()
 
-#글 생성
 class Post(TimestampModel):
     content = models.TextField('본문')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
